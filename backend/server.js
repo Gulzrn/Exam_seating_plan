@@ -1,0 +1,22 @@
+const dotenv = require('dotenv');
+const app = require('./src/app');
+const connectDB = require('./src/config/db');
+
+dotenv.config();
+
+const PORT = process.env.PORT || 4000;
+
+async function startServer() {
+  try {
+    await connectDB();
+    app.listen(PORT, () => {
+      console.log(`Seating plan API ready on port ${PORT}`);
+    });
+  } catch (error) {
+    console.error('Failed to start server', error);
+    process.exit(1);
+  }
+}
+
+startServer();
+
